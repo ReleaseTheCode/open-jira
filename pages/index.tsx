@@ -1,9 +1,13 @@
+import { Typography } from "@mui/material";
 import { NextPage } from "next/types";
+import { Layout } from '../Components/layouts';
 
 
 const HomePage: NextPage = () => {
   return (
-    <h1>Next Mundo</h1>
+    <Layout title='OpenJira Next'>
+      <Typography variant="h1" color='primary'>Next Mundo</Typography>
+    </Layout>
   )
 }
 
