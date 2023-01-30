@@ -37,13 +37,16 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-#Docker database configuracion
+## Docker database configuracion
 ```
 docker-compose up -d
 ```
-*-d for __detached__ thats release the console once proccess end
+* -d for __detached__ thats release the console once proccess end
 
-#MongoDB URL local
+# MongoDB URL local
 ```
 mongodb://localhost:27017/entriesdb
 ```
+
+# Configure environment variables
+## Rename file __.env.template__ to __.env__
