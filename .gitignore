@@ -37,3 +37,6 @@ next-env.d.ts
 
 # mongo db folder
 mongo/
+
+#environments vars
+.env
