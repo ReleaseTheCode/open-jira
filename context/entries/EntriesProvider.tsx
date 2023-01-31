@@ -8,26 +8,7 @@ export interface EntriesState {
 }
 
 const Entries_INITIAL_STATE: EntriesState  = {
-  entries: [
-    {
-      _id: uuidv4(), // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
-      description: 'Pending Lorem ipsum,  sit amet consectetur adipisicing elit.',
-      createdAt: 1,
-      status: 'pending'
-    },
-    {
-      _id: uuidv4(), // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
-      description: 'WIP Lorem ipsum, dolor sit amet consectetur  elit.',
-      createdAt: 2,
-      status: 'in-progress'
-    },
-    {
-      _id: uuidv4(), // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
-      description: 'DONE Lorem ipsum, dolor sit  consectetur adipisicing elit.',
-      createdAt: 3,
-      status: 'finished'
-    },
-  ]
+  entries: [ ],
 }
 
 export const EntriesProvider: FC<{ children: ReactNode }> = ({ children }) => {

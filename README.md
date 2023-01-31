@@ -50,3 +50,9 @@ mongodb://localhost:27017/entriesdb
 
 # Configure environment variables
 ## Rename file __.env.template__ to __.env__
+
+# Create dummy data from seed
+Call 
+```
+http://localhost:3000/api/seed
+```
