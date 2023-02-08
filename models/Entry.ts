@@ -11,7 +11,8 @@ const entrySchema = new Schema({
     enum: {
       values: ['pending', 'in-progress', 'finished' ],
       message: '{VALUE} is not a valid state'
-    }
+    },
+    default: 'pending'
   }
 })
 

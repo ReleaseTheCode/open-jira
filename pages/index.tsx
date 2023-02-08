@@ -1,13 +1,10 @@
 import { NextPage } from "next/types";
-import { Card, CardContent, CardHeader, Grid } from "@mui/material";
+import { Card, CardHeader, Grid } from "@mui/material";
 import { Layout } from '../Components/layouts';
-import { useContext } from 'react';
-import { EntriesContext } from '../context/entries/EntriesContext';
 import { EntryList, NewEntry } from "@/Components/ui";
 
 
 const HomePage: NextPage = () => {
-  const { entries } = useContext( EntriesContext )
   return (
     <Layout title='OpenJira Next'>
       <Grid container spacing={2}>
