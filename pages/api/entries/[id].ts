@@ -17,11 +17,12 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
 
   switch (req.method) {
     case 'PUT':
-      
       return updateEntry(req,res)
+    case 'GET':
+      return getEntry(req,res)
   
     default:
-      return res.status(400).json({message: 'unexpected method'})
+      return res.status(400).json({ message: 'unexpected method' })
   }
 }
 
@@ -57,4 +58,17 @@ const updateEntry = async( req: NextApiRequest, res: NextApiResponse<Data> ) => 
   entryToUpdate.save()
   */
  
+}
+
+const getEntry = async( req: NextApiRequest, res: NextApiResponse<Data> ) => {
+  const { id } = req.query;
+  await db.connect()
+  const requestedEntry = await Entry.findById( id );
+  await db.disconnect()
+
+  if( !requestedEntry ){
+    return res.status(400).json({message: 'Entry not found'})
+  }
+
+  res.status(200).json( requestedEntry )
 }
