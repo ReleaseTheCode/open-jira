@@ -6,6 +6,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import { dbEntries } from '@/database';
 import { Layout } from '../../Components/layouts'
 import { Entry, EntryStatus } from '@/interfaces'
+import { EntriesContext } from '@/context/entries';
 
 
 const validStatus: EntryStatus[] = ['pending', 'in-progress', 'finished']
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export const EntryPage:FC<Props> = ( {entry} ) => {
+  const { updateEntry } = useContext( EntriesContext )
   const [inputValue, setInputValue] = useState(entry.description)
   const [status, setStatus] = useState<EntryStatus>(entry.status)
   const [touched, setTouched] = useState(false)
@@ -30,8 +32,14 @@ export const EntryPage:FC<Props> = ( {entry} ) => {
   }
 
   const onSave = () => {
-    if(!inputValue) return
-    if( !touched ) return
+    if( inputValue.trim().length === 0 ) return;
+    const updatedEntry: Entry = {
+      ...entry,
+      status,
+      description: inputValue
+    }
+    updateEntry(updatedEntry, true)
+  }
   }
 
   return (
