@@ -20,6 +20,8 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
       return updateEntry(req,res)
     case 'GET':
       return getEntry(req,res)
+    case 'DELETE':
+      return deleteEntry(req,res)
   
     default:
       return res.status(400).json({ message: 'unexpected method' })
@@ -58,6 +60,20 @@ const updateEntry = async( req: NextApiRequest, res: NextApiResponse<Data> ) => 
   entryToUpdate.save()
   */
  
+}
+
+const deleteEntry = async( req: NextApiRequest, res: NextApiResponse<Data> ) => {
+  const { id } = req.query;
+  await db.connect()
+
+  try {
+    const deletedEntry = await Entry.findByIdAndDelete(id,  { runValidators: true, new: true })
+    await db.disconnect()
+    res.status(200).json( deletedEntry! )
+  } catch (error: any ) {
+    await db.disconnect()
+    res.status(400).json({ message: error })
+  }
 }
 
 const getEntry = async( req: NextApiRequest, res: NextApiResponse<Data> ) => {

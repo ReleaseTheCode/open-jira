@@ -2,6 +2,7 @@ import { FC, ReactNode, useEffect, useReducer } from 'react'
 import { EntriesContext, entriesReducer } from './'
 import { Entry } from '../../interfaces';
 import  { entriesApi } from '@/apis';
+import { useSnackbar } from 'notistack';
 
 export interface EntriesState {
   entries: Entry[]
@@ -12,8 +13,8 @@ const Entries_INITIAL_STATE: EntriesState  = {
 }
 
 export const EntriesProvider: FC<{ children: ReactNode }> = ({ children }) => {
-
   const [state, dispatch] = useReducer( entriesReducer, Entries_INITIAL_STATE)
+  const { enqueueSnackbar } = useSnackbar()
 
   const addNewEntry = async ( description: string ) => {
     const { data } = await entriesApi.post<Entry>('/entries', { description })
@@ -49,6 +50,22 @@ export const EntriesProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }    
   }
 
+  const deleteEntry = async( deletedEntry: Entry) => {
+    const { _id } = deletedEntry
+    try {
+      const { data } = await entriesApi.delete<Entry>(`/entries/${_id}`)
+      dispatch({
+        type: '[Entry] Entry-Delete',
+        payload: data
+      })
+      enqueueSnackbar('Deleted Entry',{
+        variant: 'info',
+        autoHideDuration: 1500,
+        anchorOrigin: {
+          vertical: 'top',
+          horizontal: 'right'
+        }
+      })
     } catch (error) {
       console.log(`%c debug variable error ===>`, 'background:black;color:red', error)
     }    
@@ -72,6 +89,7 @@ export const EntriesProvider: FC<{ children: ReactNode }> = ({ children }) => {
         ...state,
         addNewEntry,
         updateEntry,
+        deleteEntry
       }}
     > 
       { children }

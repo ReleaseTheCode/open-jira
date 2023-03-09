@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useMemo, FC } from 'react';
+import { ChangeEvent, useState, useMemo, FC, useContext } from 'react';
 import { GetServerSideProps } from 'next'
 import { capitalize, Button, Card, CardActions, CardContent, CardHeader, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField, IconButton } from '@mui/material'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
@@ -7,6 +7,7 @@ import { dbEntries } from '@/database';
 import { Layout } from '../../Components/layouts'
 import { Entry, EntryStatus } from '@/interfaces'
 import { EntriesContext } from '@/context/entries';
+import { useRouter } from 'next/router';
 
 
 const validStatus: EntryStatus[] = ['pending', 'in-progress', 'finished']
@@ -15,11 +16,14 @@ interface Props {
   entry: Entry
 }
 
-export const EntryPage:FC<Props> = ( {entry} ) => {
-  const { updateEntry } = useContext( EntriesContext )
+export const EntryPage:FC<Props> = ( { entry } ) => {
+
+  const { updateEntry, deleteEntry } = useContext( EntriesContext )
+
   const [inputValue, setInputValue] = useState(entry.description)
   const [status, setStatus] = useState<EntryStatus>(entry.status)
   const [touched, setTouched] = useState(false)
+  const router = useRouter()
 
   const isNotValid =  useMemo(() => inputValue.length <= 0 && touched, [inputValue, touched])
 
@@ -40,6 +44,10 @@ export const EntryPage:FC<Props> = ( {entry} ) => {
     }
     updateEntry(updatedEntry, true)
   }
+
+  const onDeleteEntry = () => {
+    deleteEntry(entry)
+    router.push('/')
   }
 
   return (
@@ -116,6 +124,7 @@ export const EntryPage:FC<Props> = ( {entry} ) => {
           right: 30,
           backgroundColor: 'error.dark'
         }}
+        onClick={ onDeleteEntry }
       >
         <DeleteOutlinedIcon/>
       </IconButton>
