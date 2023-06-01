@@ -60,7 +60,7 @@ export const NewEntry = () => {
             endIcon={<SaveIcon/>}
             onClick={onSave}
           >
-            Guardar
+            Save
           </Button>
         </Box>
       </>
@@ -72,7 +72,7 @@ export const NewEntry = () => {
           variant='outlined'
           onClick={ () => setIsAddingEntry(true) }
         >
-          Agregar Task
+          Add Task
         </Button>
       )
       }

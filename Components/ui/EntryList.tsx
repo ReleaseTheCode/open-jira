@@ -33,7 +33,7 @@ export const EntryList: FC<Props> = ( { status } ) => {
   return (
     <div
       onDrop={onDropEntry}
-      onDragOver={allowDrop} 
+      onDragOver={allowDrop}
       className={ isDragging ? style['dragging'] : '' }
     >
       <Paper
