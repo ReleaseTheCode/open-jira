@@ -26,5 +26,10 @@ export const seedData: SeedData = {
       createdAt: 3,
       status: 'finished'
     },
+    {
+      description: 'DONE Lorem ipsum, dolor sit  consectetur adipisicing elit. qwerty',
+      createdAt: 4,
+      status: 'pending'
+    }
   ]
 }
